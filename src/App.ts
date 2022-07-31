@@ -1,5 +1,4 @@
 import express  from "express";
-import cors from 'cors';
 import bodyParser from 'body-parser'
 import router from "./router";
 
@@ -12,9 +11,7 @@ class App{
         this.middleware()
     }
     private middleware(): void{
-        this.express.use(express.json())
         this.express.use(bodyParser.urlencoded({ extended: false }))
-        this.express.use(cors())
     }
     private router(): void{
         this.express.use(router)
