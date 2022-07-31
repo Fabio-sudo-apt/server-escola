@@ -4,7 +4,9 @@
   "main": "server.js",
   "license": "MIT",
   "scripts": {
-    "start:dev": "ts-node ./src/server.ts"
+    "dev": "nodemon",
+    "start": "node ./src/server.ts",
+    "build": "ts-node-dev ./src/server.ts"
   },
   "dependencies": {
     "@types/cors": "^2.8.12",
