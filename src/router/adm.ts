@@ -10,6 +10,10 @@ import updateProf from "../factory/professorFactory/updateProf";
 
 const adm = express.Router();
 
+adm.get('/', (req, res)=>{
+    res.send("tudo certo")
+})
+
 adm.get("/admProfAll", (req, res) => getProfs.findAll(req, res));
 
 adm.post("/createProf", (req, res) => createProf.create(req, res));
