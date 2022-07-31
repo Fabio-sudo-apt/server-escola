@@ -5,8 +5,7 @@
   "license": "MIT",
   "scripts": {
     "dev": "nodemon",
-    "start": "npx tsc && node ./build/server.js",
-    "build": "ts-node-dev ./src/server.ts"
+    "start": "npx tsc && node ./build/server.js"
   },
   "dependencies": {
     "@types/cors": "^2.8.12",
