@@ -7,7 +7,7 @@ interface IPessoa {
     email: string;
     idade: string;
     password: string;
-    genero: string;
+    genero: genero;
     turma: string;
     turno: string;
   };
@@ -35,7 +35,6 @@ export class DadosPessoa extends endereco {
     this.data.doc.genero = data.doc.genero;
     this.data.doc.turma = data.doc.turma;
     this.data.doc.turno = data.doc.turno;
-    
   }
 }
 
