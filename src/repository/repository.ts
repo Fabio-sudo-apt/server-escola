@@ -68,6 +68,9 @@ export interface Repository {
   getProfs(): Promise<DadosProfessor[]>;
   updataProf(data: DadosProfessor): Promise<void>;
   deleteProf(id: string): void;
+  
+  getUserProf(id: string): Promise<DadosProfessor>
+  getUserAluno(id: string): Promise<DadosAluno>
 
   createAluno(data: DadosAluno): Promise<void>;
   getAlunos(): Promise<DadosAluno[]>;
