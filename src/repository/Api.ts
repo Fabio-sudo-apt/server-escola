@@ -92,7 +92,7 @@ export default class Api implements Repository {
     return ListPessaos;
   }
   async updataAluno(doc: DadosAluno): Promise<void> {
-    await alunos.doc(doc.data.id).set(doc);
+    await alunos.firestore.collection('alunos').doc(doc.data.id).set(doc)
   }
   async deleteAluno(id: string): Promise<void> {
     const pessoa = alunos.doc(id).delete();
@@ -137,7 +137,7 @@ export default class Api implements Repository {
     return ListPessaos;
   }
   async updataProf(doc: DadosProfessor): Promise<void> {
-    await professores.doc(doc.data.id).set(doc);
+    await professores.firestore.collection('professores').doc(doc.data.id).set(doc)
   }
   async deleteProf(id: string): Promise<void> {
     await professores.doc(id).delete();
