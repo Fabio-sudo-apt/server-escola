@@ -9,7 +9,6 @@ interface IPessoa {
     genero: genero;
     turma: string;
     turno: string;
- 
 }
 
 class endereco {
@@ -39,7 +38,7 @@ export class DadosPessoa extends endereco {
 
 export class DadosProfessor extends DadosPessoa {
   constructor(
-    data: IPessoa,
+    public readonly data: IPessoa,
     public readonly rua: string,
     public readonly bairro: string,
     public readonly disciplina: string
