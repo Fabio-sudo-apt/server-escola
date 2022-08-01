@@ -12,14 +12,16 @@ export default class Api implements Repository {
         if (id === item.id) {
           let dadosPessoa = new DadosAluno(
             {
-              id: item.id,
-              name: item.data().name,
-              email: item.data().email,
-              idade: item.data().idade,
-              password: item.data().password,
-              genero: item.data().genero,
-              turma: item.data().turma,
-              turno: item.data().turno,
+              doc: {
+                id: item.data().doc.id,
+                name: item.data().doc.name,
+                email: item.data().doc.email,
+                idade: item.data().doc.idade,
+                password: item.data().doc.password,
+                genero: item.data().doc.genero,
+                turma: item.data().doc.turma,
+                turno: item.data().doc.turno,
+              }
             },
             item.data().rua,
             item.data().bairro,
@@ -41,14 +43,16 @@ export default class Api implements Repository {
         if (id === item.id) {
           let dadosPessoa = new DadosProfessor(
             {
-              id: item.id,
-              name: item.data().name,
-              email: item.data().email,
-              idade: item.data().idade,
-              password: item.data().password,
-              genero: item.data().genero,
-              turma: item.data().turma,
-              turno: item.data().turno,
+              doc: {
+                id: item.data().doc.id,
+                name: item.data().doc.name,
+                email: item.data().doc.email,
+                idade: item.data().doc.idade,
+                password: item.data().doc.password,
+                genero: item.data().doc.genero,
+                turma: item.data().doc.turma,
+                turno: item.data().doc.turno,
+              }
             },
             item.data().rua,
             item.data().bairro,
@@ -72,14 +76,16 @@ export default class Api implements Repository {
       data.forEach((item) => {
         let dadosPessoa = new DadosAluno(
           {
-            id: item.id,
-            name: item.data().name,
-            email: item.data().email,
-            idade: item.data().idade,
-            password: item.data().password,
-            genero: item.data().genero,
-            turma: item.data().turma,
-            turno: item.data().turno,
+            doc: {
+              id: item.data().doc.id,
+              name: item.data().doc.name,
+              email: item.data().doc.email,
+              idade: item.data().doc.idade,
+              password: item.data().doc.password,
+              genero: item.data().doc.genero,
+              turma: item.data().doc.turma,
+              turno: item.data().doc.turno,
+            }
           },
           item.data().rua,
           item.data().bairro,
@@ -92,7 +98,7 @@ export default class Api implements Repository {
     return ListPessaos;
   }
   async updataAluno(doc: DadosAluno): Promise<void> {
-    await alunos.firestore.collection('alunos').doc(doc.data.id).set(doc)
+    await alunos.firestore.collection('alunos').doc(doc.data.doc.id).set(doc)
   }
   async deleteAluno(id: string): Promise<void> {
     const pessoa = alunos.doc(id).delete();
@@ -118,14 +124,16 @@ export default class Api implements Repository {
       data.forEach((item) => {
         let dadosPessoa = new DadosProfessor(
           {
-            id: item.id,
-            name: item.data().name,
-            email: item.data().email,
-            idade: item.data().idade,
-            password: item.data().password,
-            genero: item.data().genero,
-            turma: item.data().turma,
-            turno: item.data().turno,
+            doc: {
+              id: item.data().doc.id,
+              name: item.data().doc.name,
+              email: item.data().doc.email,
+              idade: item.data().doc.idade,
+              password: item.data().doc.password,
+              genero: item.data().doc.genero,
+              turma: item.data().doc.turma,
+              turno: item.data().doc.turno,
+            }
           },
           item.data().rua,
           item.data().bairro,
@@ -137,7 +145,7 @@ export default class Api implements Repository {
     return ListPessaos;
   }
   async updataProf(doc: DadosProfessor): Promise<void> {
-    await professores.firestore.collection('professores').doc(doc.data.id).set(doc)
+    await professores.firestore.collection('professores').doc(doc.data.doc.id).update(doc)
   }
   async deleteProf(id: string): Promise<void> {
     await professores.doc(id).delete();
