@@ -1,8 +1,7 @@
 type genero = "Masculino" | "Feminino" | "Outros";
 
 interface IPessoa {
-  doc: {
-    id:string;
+    id: string;
     name: string;
     email: string;
     idade: string;
@@ -10,7 +9,7 @@ interface IPessoa {
     genero: genero;
     turma: string;
     turno: string;
-  };
+ 
 }
 
 class endereco {
@@ -27,14 +26,14 @@ export class DadosPessoa extends endereco {
     bairro: string
   ) {
     super(rua, bairro);
-    this.data.doc.id = data.doc.id;
-    this.data.doc.email = data.doc.email;
-    this.data.doc.name = data.doc.name;
-    this.data.doc.password = data.doc.password;
-    this.data.doc.idade = data.doc.idade;
-    this.data.doc.genero = data.doc.genero;
-    this.data.doc.turma = data.doc.turma;
-    this.data.doc.turno = data.doc.turno;
+    this.data.id = data.id;
+    this.data.email = data.email;
+    this.data.name = data.name;
+    this.data.password = data.password;
+    this.data.idade = data.idade;
+    this.data.genero = data.genero;
+    this.data.turma = data.turma;
+    this.data.turno = data.turno;
   }
 }
 
