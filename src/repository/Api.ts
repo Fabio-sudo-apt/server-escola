@@ -13,13 +13,13 @@ export default class Api implements Repository {
           let dadosPessoa = new DadosAluno(
             {
               id: item.id,
-              name: item.data().doc.name,
-              email: item.data().doc.email,
-              idade: item.data().doc.idade,
-              password: item.data().doc.password,
-              genero: item.data().doc.genero,
-              turma: item.data().doc.turma,
-              turno: item.data().doc.turno,
+              name: item.data().name,
+              email: item.data().email,
+              idade: item.data().idade,
+              password: item.data().password,
+              genero: item.data().genero,
+              turma: item.data().turma,
+              turno: item.data().turno,
             },
             item.data().rua,
             item.data().bairro,
@@ -42,19 +42,18 @@ export default class Api implements Repository {
           let dadosPessoa = new DadosProfessor(
             {
               id: item.id,
-              name: item.data().doc.name,
-              email: item.data().doc.email,
-              idade: item.data().doc.idade,
-              password: item.data().doc.password,
-              genero: item.data().doc.genero,
-              turma: item.data().doc.turma,
-              turno: item.data().doc.turno,
+              name: item.data().name,
+              email: item.data().email,
+              idade: item.data().idade,
+              password: item.data().password,
+              genero: item.data().genero,
+              turma: item.data().turma,
+              turno: item.data().turno,
             },
             item.data().rua,
             item.data().bairro,
             item.data().disciplina
           );
-
           user = dadosPessoa;
         }
       });
