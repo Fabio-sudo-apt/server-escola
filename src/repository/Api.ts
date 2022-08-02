@@ -182,13 +182,15 @@ export default class Api implements Repository {
       disciplina: Yup.string().required("Disciplina e obrigatorio"),
     } as Record<keyof DadosProfessor, any>);
     await validadeDoc.validate(item);
-    await professores.doc(item.data.id).delete();
     await professores.firestore
       .collection("professores")
       .doc(item.data.id)
-      .set(item);
+      .update(item);
   }
   async deleteProf(id: string): Promise<void> {
-    await professores.doc(id).delete();
+    await await professores.firestore
+    .collection("professores")
+    .doc(id)
+    .delete();
   }
 }
