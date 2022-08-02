@@ -126,7 +126,7 @@ export default class Api implements Repository {
     await validadeId.validate(id);
     await alunos.doc(id).delete();
   }
-  async createProf(data: DadosProfessor): Promise<void> {
+  async createProf(doc: DadosProfessor): Promise<void> {
     const validadeData = Yup.object().shape({
       data: Yup.object().required("Data e obrigatorio"),
       rua: Yup.string().required("Rua e obrigatorio"),
@@ -134,8 +134,23 @@ export default class Api implements Repository {
       disciplina: Yup.string().required("Disciplina e obrigatorio"),
     } as Record<keyof DadosProfessor, any>);
 
-    await validadeData.validate(data);
-    await professores.doc().set(data);
+    await validadeData.validate(doc);
+    const user = new DadosProfessor(
+      {
+        id: doc.data.id,
+        name: doc.data.name,
+        email: doc.data.email,
+        idade: doc.data.idade,
+        genero: doc.data.genero,
+        password: doc.data.genero,
+        turma: doc.data.turma,
+        turno: doc.data.turno,
+      },
+      doc.rua,
+      doc.bairro,
+      doc.disciplina
+    );
+    await professores.doc().set(user);
   }
   async getProfs(): Promise<DadosProfessor[]> {
     const pessoas = await professores.get();
@@ -146,13 +161,13 @@ export default class Api implements Repository {
         let dadosPessoa = new DadosProfessor(
           {
             id: item.id,
-            name: item.data().name,
-            email: item.data().email,
-            idade: item.data().idade,
-            password: item.data().password,
-            genero: item.data().genero,
-            turma: item.data().turma,
-            turno: item.data().turno,
+            name: item.data().data.name,
+            email: item.data().data.email,
+            idade: item.data().data.idade,
+            password: item.data().data.password,
+            genero: item.data().data.genero,
+            turma: item.data().data.turma,
+            turno: item.data().data.turno,
           },
           item.data().rua,
           item.data().bairro,
@@ -169,7 +184,7 @@ export default class Api implements Repository {
       rua: Yup.string().required("Rua e obrigatorio"),
       bairro: Yup.string().required("Bairro e obrigatorio"),
       disciplina: Yup.string().required("Disciplina e obrigatorio"),
-    }as Record<keyof DadosProfessor, any>);
+    } as Record<keyof DadosProfessor, any>);
     await validadeDoc.validate(item);
     await professores.doc(item.data.id).delete();
     await professores.firestore
@@ -179,9 +194,9 @@ export default class Api implements Repository {
   }
   async deleteProf(id: string): Promise<void> {
     const validadeId = Yup.object().shape({
-      id: Yup.string().required("Id e obrigatorio")
-    })
-    await validadeId.validate(id)
+      id: Yup.string().required("Id e obrigatorio"),
+    });
+    await validadeId.validate(id);
     await professores.doc(id).delete();
   }
 }
