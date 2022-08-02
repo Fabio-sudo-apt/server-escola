@@ -4,6 +4,10 @@ import * as Yup from "yup";
 
 export default class Api implements Repository {
   async getUserAluno(id: string): Promise<DadosAluno> {
+    const validadeId = Yup.object().shape({
+      id: Yup.string().required("id e obrigatorio"),
+    });
+    await validadeId.validate(id);
     const pessoas = await alunos.get();
     let user = <DadosAluno>{};
     if (!pessoas.empty) {
@@ -33,6 +37,10 @@ export default class Api implements Repository {
     return user;
   }
   async getUserProf(id: string): Promise<DadosProfessor> {
+    const validadeId = Yup.object().shape({
+      id: Yup.string().required("id e obrigatorio"),
+    });
+    await validadeId.validate(id);
     const pessoas = await professores.get();
     let user = <DadosProfessor>{};
     if (!pessoas.empty) {
@@ -61,6 +69,15 @@ export default class Api implements Repository {
     return user;
   }
   async createAluno(data: DadosAluno): Promise<void> {
+    const validadeData = Yup.object().shape({
+      data: Yup.object().required("Data e obrigatorio"),
+      rua: Yup.string().required("Rua e obrigatorio"),
+      bairro: Yup.string().required("Bairro e obrigatorio"),
+      n1: Yup.string().required("Nota1 e obrigatorio"),
+      n2: Yup.string().required("Nota1 e obrigatorio"),
+    } as Record<keyof DadosAluno, any>);
+
+    await validadeData.validate(data);
     await alunos.doc().set(data);
   }
   async getAlunos(): Promise<DadosAluno[]> {
@@ -91,12 +108,33 @@ export default class Api implements Repository {
     return ListPessaos;
   }
   async updataAluno(doc: DadosAluno): Promise<void> {
+    const validadeDoc = Yup.object().shape({
+      data: Yup.object().required("Data e obrigatorio"),
+      rua: Yup.string().required("Rua e obrigatorio"),
+      bairro: Yup.string().required("Bairro e obrigatorio"),
+      n1: Yup.string().required("Nota1 e obrigatorio"),
+      n2: Yup.string().required("Nota1 e obrigatorio"),
+    });
+    await validadeDoc.validate(doc);
+    await alunos.doc(doc.data.id).delete();
     await alunos.firestore.collection("alunos").doc(doc.data.id).set(doc);
   }
   async deleteAluno(id: string): Promise<void> {
-    const pessoa = alunos.doc(id).delete();
+    const validadeId = Yup.object().shape({
+      id: Yup.string().required("id e obrigatorio"),
+    });
+    await validadeId.validate(id);
+    await alunos.doc(id).delete();
   }
   async createProf(data: DadosProfessor): Promise<void> {
+    const validadeData = Yup.object().shape({
+      data: Yup.object().required("Data e obrigatorio"),
+      rua: Yup.string().required("Rua e obrigatorio"),
+      bairro: Yup.string().required("Bairro e obrigatorio"),
+      disciplina: Yup.string().required("Disciplina e obrigatorio"),
+    } as Record<keyof DadosProfessor, any>);
+
+    await validadeData.validate(data);
     await professores.doc().set(data);
   }
   async getProfs(): Promise<DadosProfessor[]> {
@@ -126,27 +164,24 @@ export default class Api implements Repository {
     return ListPessaos;
   }
   async updataProf(item: DadosProfessor): Promise<void> {
-    let dadosPessoa = new DadosProfessor(
-      {
-        id: item.data.id,
-        name: item.data.name,
-        email: item.data.email,
-        idade: item.data.idade,
-        password: item.data.password,
-        genero: item.data.genero,
-        turma: item.data.turma,
-        turno: item.data.turno,
-      },
-      item.rua,
-      item.bairro,
-      item.disciplina
-    );
+    const validadeDoc = Yup.object().shape({
+      data: Yup.object().required("Doc e obrigatorio"),
+      rua: Yup.string().required("Rua e obrigatorio"),
+      bairro: Yup.string().required("Bairro e obrigatorio"),
+      disciplina: Yup.string().required("Disciplina e obrigatorio"),
+    }as Record<keyof DadosProfessor, any>);
+    await validadeDoc.validate(item);
+    await professores.doc(item.data.id).delete();
     await professores.firestore
       .collection("professores")
       .doc(item.data.id)
-      .update(dadosPessoa);
+      .set(item);
   }
   async deleteProf(id: string): Promise<void> {
+    const validadeId = Yup.object().shape({
+      id: Yup.string().required("Id e obrigatorio")
+    })
+    await validadeId.validate(id)
     await professores.doc(id).delete();
   }
 }
