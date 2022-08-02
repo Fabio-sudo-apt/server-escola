@@ -37,10 +37,6 @@ export default class Api implements Repository {
     return user;
   }
   async getUserProf(id: string): Promise<DadosProfessor> {
-    const validadeId = Yup.object().shape({
-      id: Yup.string().required("id e obrigatorio"),
-    });
-    await validadeId.validate(id);
     const pessoas = await professores.get();
     let user = <DadosProfessor>{};
     if (!pessoas.empty) {
@@ -50,13 +46,13 @@ export default class Api implements Repository {
           let dadosPessoa = new DadosProfessor(
             {
               id: item.id,
-              name: item.data().name,
-              email: item.data().email,
-              idade: item.data().idade,
-              password: item.data().password,
-              genero: item.data().genero,
-              turma: item.data().turma,
-              turno: item.data().turno,
+              name: item.data().data.name,
+              email: item.data().data.email,
+              idade: item.data().data.idade,
+              password: item.data().data.password,
+              genero: item.data().data.genero,
+              turma: item.data().data.turma,
+              turno: item.data().data.turno,
             },
             item.data().rua,
             item.data().bairro,
