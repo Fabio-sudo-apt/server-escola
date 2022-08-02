@@ -10,6 +10,15 @@ interface IPessoa {
     turma: string;
     turno: string;
 }
+interface IPessoaCraete {
+    name: string;
+    email: string;
+    idade: string;
+    password: string;
+    genero: genero;
+    turma: string;
+    turno: string;
+}
 
 class endereco {
   constructor(public readonly rua: string, public readonly bairro: string) {
@@ -47,7 +56,16 @@ export class DadosProfessor extends DadosPessoa {
     this.disciplina = disciplina;
   }
 }
-
+export class DadosProfessorCreate {
+  constructor(
+    public readonly data: IPessoaCraete,
+    public readonly rua: string,
+    public readonly bairro: string,
+    public readonly disciplina: string
+  ) {
+    this.disciplina = disciplina;
+  }
+}
 export class DadosAluno extends DadosPessoa {
   constructor(
     data: IPessoa,
@@ -63,14 +81,13 @@ export class DadosAluno extends DadosPessoa {
 }
 
 export interface Repository {
-  createProf(data: DadosProfessor): Promise<void>;
+  getUserProf(id: string): Promise<DadosProfessor>
+  createProf(data: DadosProfessorCreate): Promise<void>;
   getProfs(): Promise<DadosProfessor[]>;
   updataProf(data: DadosProfessor): Promise<void>;
   deleteProf(id: string): void;
   
-  getUserProf(id: string): Promise<DadosProfessor>
   getUserAluno(id: string): Promise<DadosAluno>
-
   createAluno(data: DadosAluno): Promise<void>;
   getAlunos(): Promise<DadosAluno[]>;
   updataAluno(data: DadosAluno): Promise<void>;
