@@ -125,11 +125,26 @@ export default class Api implements Repository {
     }
     return ListPessaos;
   }
-  async updataProf(doc: DadosProfessor): Promise<void> {
+  async updataProf(item: DadosProfessor): Promise<void> {
+    let dadosPessoa = new DadosProfessor(
+      {
+        id: item.data.id,
+        name: item.data.name,
+        email: item.data.email,
+        idade: item.data.idade,
+        password: item.data.password,
+        genero: item.data.genero,
+        turma: item.data.turma,
+        turno: item.data.turno,
+      },
+      item.rua,
+      item.bairro,
+      item.disciplina
+    );
     await professores.firestore
       .collection("professores")
-      .doc(doc.data.id)
-      .update(doc);
+      .doc(item.data.id)
+      .update(dadosPessoa);
   }
   async deleteProf(id: string): Promise<void> {
     await professores.doc(id).delete();
