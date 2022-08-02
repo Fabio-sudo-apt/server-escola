@@ -189,10 +189,6 @@ export default class Api implements Repository {
       .set(item);
   }
   async deleteProf(id: string): Promise<void> {
-    const validadeId = Yup.object().shape({
-      id: Yup.string().required("Id e obrigatorio"),
-    });
-    await validadeId.validate(id);
     await professores.doc(id).delete();
   }
 }
