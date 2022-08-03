@@ -170,7 +170,7 @@ export default class Api implements Repository {
   }
   async deleteAluno(id: string): Promise<void> {
     await alunos.firestore
-    .collection("professores")
+    .collection("alunos")
     .doc(id)
     .delete();
   }
