@@ -66,13 +66,26 @@ export class DadosProfessorCreate {
     this.disciplina = disciplina;
   }
 }
-export class DadosAluno extends DadosPessoa {
+
+export class DadosAlunoCreate {
   constructor(
-    data: IPessoa,
+    public readonly data: IPessoaCraete,
     public readonly rua: string,
     public readonly bairro: string,
-    public readonly n1: number,
-    public readonly n2: number,
+    public readonly n1: string,
+    public readonly n2: string
+  ) {
+    this.n1 = n1;
+    this.n1 = n2;
+  }
+}
+export class DadosAluno extends DadosPessoa {
+  constructor(
+    public readonly data: IPessoa,
+    public readonly rua: string,
+    public readonly bairro: string,
+    public readonly n1: string,
+    public readonly n2: string,
   ) {
     super(data, rua, bairro);
     this.n1 = n1;
